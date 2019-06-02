@@ -20,14 +20,14 @@ class AddNewContact(unittest.TestCase):
 
     def create_contact(self, wd, firstname, lastname, address, home_phone):
         wd.find_element_by_xpath("//a[contains(text(),'add new')]").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(firstname)
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(lastname)
-        wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys(address)
-        wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(home_phone)
+        wd.find_element_by_xpath("//input[@name='firstname']").clear()
+        wd.find_element_by_xpath("//input[@name='firstname']").send_keys(firstname)
+        wd.find_element_by_xpath("//input[@name='lastname']").clear()
+        wd.find_element_by_xpath("//input[@name='lastname']").send_keys(lastname)
+        wd.find_element_by_xpath("//textarea[@name='address']").clear()
+        wd.find_element_by_xpath("//textarea[@name='address']").send_keys(address)
+        wd.find_element_by_xpath("//input[@name='home']").clear()
+        wd.find_element_by_xpath("//input[@name='home']").send_keys(home_phone)
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
     def login(self, wd, username, password):
