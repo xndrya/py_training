@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
+from contact import Contact
 
 class AddNewContact(unittest.TestCase):
     def setUp(self):
@@ -11,23 +12,20 @@ class AddNewContact(unittest.TestCase):
     
     def test_add_new_contact(self):
         wd = self.wd
-        # open home page
         wd.get("http://localhost/addressbook/")
-        # login
         self.login(wd, "admin", "secret")
-        # create contact
-        self.create_contact(wd, "First name", "Last name", "Address", "1234567890")
+        self.create_contact(wd, Contact("First name", "Last name", "Address", "1234567890"))
 
-    def create_contact(self, wd, firstname, lastname, address, home_phone):
+    def create_contact(self, wd, contact):
         wd.find_element_by_xpath("//a[contains(text(),'add new')]").click()
         wd.find_element_by_xpath("//input[@name='firstname']").clear()
-        wd.find_element_by_xpath("//input[@name='firstname']").send_keys(firstname)
+        wd.find_element_by_xpath("//input[@name='firstname']").send_keys(contact.firstname)
         wd.find_element_by_xpath("//input[@name='lastname']").clear()
-        wd.find_element_by_xpath("//input[@name='lastname']").send_keys(lastname)
+        wd.find_element_by_xpath("//input[@name='lastname']").send_keys(contact.lastname)
         wd.find_element_by_xpath("//textarea[@name='address']").clear()
-        wd.find_element_by_xpath("//textarea[@name='address']").send_keys(address)
+        wd.find_element_by_xpath("//textarea[@name='address']").send_keys(contact.address)
         wd.find_element_by_xpath("//input[@name='home']").clear()
-        wd.find_element_by_xpath("//input[@name='home']").send_keys(home_phone)
+        wd.find_element_by_xpath("//input[@name='home']").send_keys(contact.home_phone)
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
     def login(self, wd, username, password):
