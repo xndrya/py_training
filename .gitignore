@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+.idea/misc.xml
+.idea/modules.xml
+.idea/py_training.iml
+.idea/vcs.xml
+.idea/workspace.xml
+/geckodriver.log
+/.idea/dictionaries/X.xml
