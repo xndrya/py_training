@@ -1,14 +1,11 @@
 from selenium import webdriver
-
+from fixture.session import SessionHelper
 class Application:
 
     def __init__(self):
         self.wd = webdriver.Firefox(executable_path ="C:\geckodriver\geckodriver.exe")
         self.wd.implicitly_wait(30)
-
-    def logout(self):
-        wd = self.wd
-        wd.find_element_by_xpath("//a[contains(@href, '#')]").click()
+        self.session = SessionHelper(self)
 
     def return_to_groups_page(self):
         wd = self.wd
@@ -31,14 +28,6 @@ class Application:
     def open_groups_page(self):
         wd = self.wd
         wd.find_element_by_xpath("//a[contains(text(),'groups')]").click()
-
-    def login(self, username, password):
-        wd = self.wd
-        wd.find_element_by_xpath("//input[@name='user']").clear()
-        wd.find_element_by_xpath("//input[@name='user']").send_keys(username)
-        wd.find_element_by_xpath("//input[@name='pass']").clear()
-        wd.find_element_by_xpath("//input[@name='pass']").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
 
     def open_home_page(self):
         wd = self.wd
