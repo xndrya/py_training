@@ -28,3 +28,9 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@name='home']").clear()
         wd.find_element_by_xpath("//input[@name='home']").send_keys(contact.home_phone)
         wd.find_element_by_xpath("(//*[@name='update'])[1]").click()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//*[@name='selected[]']").click()
+        wd.find_element_by_xpath("//*[@value='Delete']").click()
+        wd.switch_to.alert.accept()
