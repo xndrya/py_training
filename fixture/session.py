@@ -14,3 +14,4 @@ class SessionHelper:
     def logout(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//a[contains(@href, '#')]").click()
+        wd.find_element_by_name("user")

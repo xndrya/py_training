@@ -18,7 +18,7 @@ class ContactHelper:
 
     def edit_first(self, contact):
         wd = self.app.wd
-        wd.find_element_by_xpath("//*[@href='edit.php?id=2']").click()
+        wd.find_element_by_xpath("(//img[@alt='Edit'])[1]").click()
         wd.find_element_by_xpath("//input[@name='firstname']").clear()
         wd.find_element_by_xpath("//input[@name='firstname']").send_keys(contact.firstname)
         wd.find_element_by_xpath("//input[@name='lastname']").clear()
