@@ -6,13 +6,14 @@ class Application:
 
     def __init__(self):
         self.wd = webdriver.Firefox(executable_path ="C:\geckodriver\geckodriver.exe")
-        self.wd.implicitly_wait(30)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
 
     def open_home_page(self):
         wd = self.wd
+        if wd.current_url.endswith("/addressbook") and wd.find_elements_by_xpath("//*[@id='maintable']/tbody/tr[1]/th[2]/a").text == "Last name":
+            return
         wd.get("http://localhost/addressbook/")
 
     def destroy(self):
