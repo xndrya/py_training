@@ -40,3 +40,7 @@ class GroupHelper:
     def open_groups_page(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//a[contains(text(),'groups')]").click()
+
+    def count(self):
+        wd = self.app.wd
+        return (wd.find_elements_by_xpath("//*[@name='selected[]']"))
