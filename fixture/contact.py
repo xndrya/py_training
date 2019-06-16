@@ -31,3 +31,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//textarea[@name='address']").send_keys(contact.address)
         wd.find_element_by_xpath("//input[@name='home']").clear()
         wd.find_element_by_xpath("//input[@name='home']").send_keys(contact.home_phone)
+
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_xpath("//*[@name='selected[]']"))

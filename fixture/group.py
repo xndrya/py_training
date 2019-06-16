@@ -43,4 +43,4 @@ class GroupHelper:
 
     def count(self):
         wd = self.app.wd
-        return (wd.find_elements_by_xpath("//*[@name='selected[]']"))
+        return len(wd.find_elements_by_xpath("//*[@name='selected[]']"))
