@@ -18,12 +18,14 @@ class GroupHelper:
         # submit form
         wd.find_element_by_xpath("//input[@name='submit']").click()
         self.open_groups_page()
+        self.group_cache = None
 
     def delete_first_group(self):
         wd = self.app.wd
         wd.find_element_by_xpath("(//*[@name='selected[]'])[1]").click()
         wd.find_element_by_xpath("//*[@name='delete']").click()
         self.open_groups_page()
+        self.group_cache = None
 
     def edit_first_group(self, group):
         wd = self.app.wd
@@ -32,6 +34,7 @@ class GroupHelper:
         self.fill_form(group)
         wd.find_element_by_xpath("//*[@name='update']").click()
         self.open_groups_page()
+        self.group_cache = None
 
     def fill_form(self,group):
         wd = self.app.wd
@@ -52,11 +55,14 @@ class GroupHelper:
         wd = self.app.wd
         return len(wd.find_elements_by_xpath("//*[@name='selected[]']"))
 
+    group_cache = None
+
     def get_group_list(self):
-        wd = self.app.wd
-        groups = []
-        for element in wd.find_elements_by_css_selector("span.group"):
-            text = element.text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            groups.append(Group(group_name=text, id = id))
-        return groups
+        if self.group_cache is None:
+            wd = self.app.wd
+            group_cache = []
+            for element in wd.find_elements_by_css_selector("span.group"):
+                text = element.text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                group_cache.append(Group(group_name=text, id = id))
+        return list(group_cache)
