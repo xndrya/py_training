@@ -2,7 +2,7 @@
 
 from model.contact import Contact
 
-def test_add_new_contact(app):
+def test_create_new_contact(app):
     app.open_home_page()
     old_contacts = app.contact.get_contact_list()
     contact = Contact("First name", "Last name", "Address", "1234567890")

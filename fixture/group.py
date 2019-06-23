@@ -20,21 +20,31 @@ class GroupHelper:
         self.open_groups_page()
         self.group_cache = None
 
-    def delete_first_group(self):
+    def delete_group_by_index(self, index):
         wd = self.app.wd
-        wd.find_element_by_xpath("(//*[@name='selected[]'])[1]").click()
+        self.select_group_by_index(index)
         wd.find_element_by_xpath("//*[@name='delete']").click()
         self.open_groups_page()
         self.group_cache = None
 
-    def edit_first_group(self, group):
+    def delete_first_group(self):
+        self.delete_group_by_index(0)
+
+    def select_group_by_index(self, index):
         wd = self.app.wd
-        wd.find_element_by_xpath("(//*[@name='selected[]'])[1]").click()
+        wd.find_elements_by_xpath("//*[@name='selected[]']")[index].click()
+
+    def edit_group_by_index(self, index, group):
+        wd = self.app.wd
+        self.select_group_by_index(index)
         wd.find_element_by_xpath("//*[@name='edit']").click()
         self.fill_form(group)
         wd.find_element_by_xpath("//*[@name='update']").click()
         self.open_groups_page()
         self.group_cache = None
+
+    def edit_first_group(self, group):
+        self.edit_group_by_index(0, group)
 
     def fill_form(self,group):
         wd = self.app.wd
