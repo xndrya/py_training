@@ -11,4 +11,3 @@ def test_edit_first_group(app):
     app.group.edit_first_group(Group("Edited group", "This is the edited group in this Address Book", "This is the edited comment"))
     new_groups = app.group.get_group_list()
     assert len(old_groups) == len(new_groups)
-    app.group.return_to_groups_page()
