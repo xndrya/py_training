@@ -17,12 +17,13 @@ class GroupHelper:
         self.fill_form(group)
         # submit form
         wd.find_element_by_xpath("//input[@name='submit']").click()
-        wd.find_element_by_xpath("//a[contains(text(),'groups')]").click()
+        self.open_groups_page()
 
     def delete_first_group(self):
         wd = self.app.wd
         wd.find_element_by_xpath("(//*[@name='selected[]'])[1]").click()
         wd.find_element_by_xpath("//*[@name='delete']").click()
+        self.open_groups_page()
 
     def edit_first_group(self, group):
         wd = self.app.wd
@@ -30,6 +31,7 @@ class GroupHelper:
         wd.find_element_by_xpath("//*[@name='edit']").click()
         self.fill_form(group)
         wd.find_element_by_xpath("//*[@name='update']").click()
+        self.open_groups_page()
 
     def fill_form(self,group):
         wd = self.app.wd
