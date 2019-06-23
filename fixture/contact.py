@@ -35,3 +35,6 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         return len(wd.find_elements_by_xpath("//*[@name='selected[]']"))
+
+    def get_contact_list(self):
+        pass

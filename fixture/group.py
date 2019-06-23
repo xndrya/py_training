@@ -17,6 +17,7 @@ class GroupHelper:
         self.fill_form(group)
         # submit form
         wd.find_element_by_xpath("//input[@name='submit']").click()
+        wd.find_element_by_xpath("//a[contains(text(),'groups')]").click()
 
     def delete_first_group(self):
         wd = self.app.wd
