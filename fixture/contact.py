@@ -58,8 +58,9 @@ class ContactHelper:
             wd = self.app.wd
             self.contact_cache = []
             for element in wd.find_elements_by_xpath("//tr[@name='entry']"):
-                first_n = element.find_element_by_xpath("//tr[@name='entry']//td[3]").text
-                last_n = element.find_element_by_xpath("//tr[@name='entry']//td[2]").text
+                data = element.find_elements_by_tag_name("td")
+                first_n = data[2].text
+                last_n = data[1].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.contact_cache.append(Contact(firstname=first_n, lastname=last_n, id=id))
         return list(self.contact_cache)

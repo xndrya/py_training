@@ -12,3 +12,5 @@ def test_edit_some_contact(app):
     app.contact.edit_contact_by_index(index, Contact("First name modified", "Last name modified", "Address modified", "9876543210"))
     new_contacts = app.contact.get_contact_list()
     assert len(old_contacts) == len(new_contacts)
+    print(old_contacts)
+    print(new_contacts)
