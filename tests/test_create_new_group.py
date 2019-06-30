@@ -15,7 +15,6 @@ testdata = [Group("", "", "")]+[
 def test_create_new_group(app, group):
     app.open_home_page()
     app.group.open_groups_page()
-    # group = Group("New group", "This is a new group in this Address Book", "This is a comment")
     old_groups = app.group.get_group_list()
     app.group.create(group)
     assert len(old_groups)+1 == app.group.count()
