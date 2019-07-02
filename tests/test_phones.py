@@ -21,4 +21,4 @@ def merge_phones_at_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
                             map(lambda x: clear(x),
                                 filter(lambda x: x is not None,
-                                       [contact.homephone, contact.mobile, contact.workphone, contact.phone2]))))
+                                       [contact.home_phone, contact.mobile, contact.workphone, contact.phone2]))))
