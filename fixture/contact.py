@@ -63,7 +63,12 @@ class ContactHelper:
                 first_n = data[2].text
                 last_n = data[1].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.contact_cache.append(Contact(firstname=first_n, lastname=last_n, id=id))
+                address = data[3].text
+                emails = data[4].text
+                phones = data[5].text
+                self.contact_cache.append(Contact(id=id, firstname=first_n, lastname=last_n, address=address,
+                                                  phones=phones,
+                                                  emails=emails))
         return list(self.contact_cache)
 
     def open_contact_to_edit_by_index(self, index):
