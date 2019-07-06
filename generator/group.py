@@ -7,7 +7,7 @@ import sys
 from model.group import Group
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f", ["number of groups", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
 except getopt.GetoptError as err:
     print(err)
     getopt.usage()
@@ -37,4 +37,3 @@ file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 
 with open(file_path, "w") as out:
     out.write(json.dumps(testdata, default=lambda x: x.__dict__, indent=2))
-
