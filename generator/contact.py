@@ -27,11 +27,11 @@ for o, a in opts:
 
 
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters+string.digits+" "*10
+    symbols = string.ascii_letters + string.digits + " " * 10
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 testdata = [Contact("", "", "", "")]+[
-    Contact(random_string("name",10), random_string("lastname",20), random_string("address",20), (random.choice(string.digits))*10) for i in range(5)
+    Contact(random_string("name",10), random_string("lastname",20), random_string("address",20), (random.choice(string.digits))*10) for i in range(n)
 ]
 
 file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
