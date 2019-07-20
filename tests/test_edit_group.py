@@ -1,16 +1,23 @@
 # -*- coding: utf-8 -*-
-
-from random import randrange
+import random
 from model.group import Group
 
-def test_edit_some_group(app):
+def test_edit_some_group(app, db, check_ui):
     app.open_home_page()
     app.group.open_groups_page()
-    if app.group.count == 0:
-        app.group.create(Group(group_name="test", group_header="test header", group_footer="test_footer"))
+    if app.group.count() == 0:
+        app.group.create(Group(group_name="GroupX"))
     old_groups = db.get_group_list()
-    group = random.choice(old_groups)
-    app.group.edit_group_by_id(index, Group("Edited group", "This is the edited group in this Address Book", "This is the edited comment"))
+    id = random.choice(old_groups).id
+    group_old_data = db.get_group_by_id(id)
+    old_groups.remove(group_old_data)
+    group_new = Group(group_name="GroupX", id=id)
+    app.group.edit_group_by_id(id, group_new)
+    old_groups.append(group_new)
+    assert len(old_groups) == app.group.count()
     new_groups = db.get_group_list()
-    old_groups.remove(group)
-    assert len(old_groups) == len(new_groups)
+    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+    if check_ui:
+        def clean(group_cl):
+            return Group(id=group_cl.id, group_name=group_cl.name.strip())
+        assert sorted(list(map(clean, new_groups)), key = Group.id_or_max) == sorted(app.group.get_group_list(), key = Group.id_or_max)
