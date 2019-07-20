@@ -6,6 +6,15 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
+    def add_contact_in_group(self, id_group, id_contact):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_contact(id_contact)
+        wd.implicitly_wait(3)
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_name("to_group")).select_by_value(id_group)
+        wd.find_element_by_name("add").click()
+
     def create(self, contact):
         wd = self.app.wd
         wd.find_element_by_xpath("//a[contains(text(),'add new')]").click()
@@ -41,6 +50,18 @@ class ContactHelper:
         wd.find_element_by_css_selector("div.msgbox")
         self.app.open_home_page()
         self.contact_cache = None
+
+    def delete_contact_from_group(self, id_group, id_contact):
+        wd = self.app.wd
+        self.go_to_contacts_in_group_page(id_group)
+        self.select_contact(id_contact)
+        wd.find_element_by_name("remove").click()
+
+    def go_to_contacts_in_group_page(self, id):
+        wd = self.app.wd
+        if not (wd.current_url == "http://localhost/addressbook/?group=%s" % id
+                and len(wd.find_element_by_name("remove")) > 0):
+            wd.get("http://localhost/addressbook/?group=%s" % id)
 
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
@@ -128,3 +149,7 @@ class ContactHelper:
         workphone = re.search("W: (.*)", text).group(1)
         phone2 = re.search("P: (.*)", text).group(1)
         return Contact(home_phone=home_phone, mobile=mobile, workphone=workphone, phone2=phone2)
+
+    def select_contact(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
