@@ -20,14 +20,13 @@ def test_contact_fields_to_db(app, db):
         assert contact.firstname == db.get_contact_by_id(contact.id).firstname
         assert contact.lastname == db.get_contact_by_id(contact.id).lastname
         assert contact.address == db.get_contact_by_id(contact.id).address
-        assert contact.all_emails_from_home_page == merge_emails(db.get_contact_by_id(contact.id))
-        assert contact.all_phones_from_home_page == merge_phones(db.get_contact_by_id(contact.id))
+        assert contact.emails == merge_emails(db.get_contact_by_id(contact.id))
+        assert contact.phones == merge_phones(db.get_contact_by_id(contact.id))
 
 def merge_emails(contact):
     return "\n".join(filter(lambda x: x != "",
-                            filter(lambda x: x is not None, [contact.email, contact.email2, contact.email3])))
+                            filter(lambda x: x is not None, [contact.email1, contact.email2, contact.email3])))
 
 def merge_phones(contact):
     return "\n".join(filter(lambda x: x != "",
-                            filter(lambda x: x is not None, [contact.homephone, contact.mobilephone,
-                                                             contact.workphone, contact.secondaryphone])))
+                            filter(lambda x: x is not None, [contact.home_phone, contact.mobile, contact.workphone, contact.phone2])))
