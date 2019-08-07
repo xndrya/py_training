@@ -20,7 +20,10 @@ def test_del_contact_from_group(app, db, orm):
         id_group = random.choice(db.get_group_list()).id
         app.contact.add_contact_in_group(id_group, id_contact)
         id_group_list_with_contacts.append(id_group)
-    id_group = random.choice(id_group_list_with_contacts)
-    id_contact = random.choice(orm.get_contacts_in_group(Group(id=id_group))).id
-    app.contact.delete_contact_from_group(id_group, id_contact)
+    with pytest.allure.step('Выбираем группу'):
+        id_group = random.choice(id_group_list_with_contacts)
+    with pytest.allure.step('Выбираем контакт'):
+        id_contact = random.choice(orm.get_contacts_in_group(Group(id=id_group))).id
+    with pytest.allure.step('Удаляем контакт из группы'):
+        app.contact.delete_contact_from_group(id_group, id_contact)
     assert db.get_contact_by_id(id_contact) not in orm.get_contacts_in_group(Group(id=id_group))

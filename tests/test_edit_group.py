@@ -7,16 +7,21 @@ def test_edit_some_group(app, db, check_ui):
     app.group.open_groups_page()
     if app.group.count() == 0:
         app.group.create(Group(group_name="GroupX"))
-    old_groups = db.get_group_list()
-    id = random.choice(old_groups).id
+    with pytest.allure.step('Получение списка групп'):
+        old_groups = db.get_group_list()
+    with pytest.allure.step('Выбираем группу'):
+        id = random.choice(old_groups).id
     group_old_data = db.get_group_by_id(id)
     old_groups.remove(group_old_data)
     group_new = Group(group_name="GroupX", id=id)
-    app.group.edit_group_by_id(id, group_new)
+    with pytest.allure.step('Изменяем выбранную группу'):
+        app.group.edit_group_by_id(id, group_new)
     old_groups.append(group_new)
     assert len(old_groups) == app.group.count()
-    new_groups = db.get_group_list()
-    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+    with pytest.allure.step('Получение нового списка групп'):
+        new_groups = db.get_group_list()
+    with pytest.allure.step('Проверяем соответствие списков'):
+        assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
     if check_ui:
         def clean(group_cl):
             return Group(id=group_cl.id, group_name=group_cl.name.strip())

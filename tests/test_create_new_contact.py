@@ -4,9 +4,12 @@ from model.contact import Contact
 def test_create_new_contact(app, db, json_contacts, check_ui):
     app.open_home_page()
     contact = json_contacts
-    old_contacts = db.get_contact_list()
-    app.contact.create(contact)
-    new_contacts = db.get_contact_list()
+    with pytest.allure.step('Получаем список контактов'):
+        old_contacts = db.get_contact_list()
+    with pytest.allure.step('Добавляем контакт'):
+        app.contact.create(contact)
+    with pytest.allure.step('Сравниваем списки'):
+        new_contacts = db.get_contact_list()
     old_contacts.append(contact)
     assert sorted(old_contacts, key = Contact.id_or_max) == sorted(new_contacts, key = Contact.id_or_max)
     if check_ui:
